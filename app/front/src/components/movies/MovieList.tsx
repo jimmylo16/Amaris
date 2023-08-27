@@ -1,28 +1,14 @@
 import { useGetPopularMovies } from "@/hooks/useGetPopularMovies";
 import React, { useEffect } from "react";
 import { MovieCard } from "./MovieCard";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 export const MovieList = () => {
   const popularMoviesQuery = useGetPopularMovies();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     popularMoviesQuery;
-  useEffect(() => {
-    let fetching = false;
-    const handleScroll = async (e: any) => {
-      const { scrollHeight, scrollTop, clientHeight } =
-        e.target.scrollingElement;
-      if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.2) {
-        fetching = true;
-        if (hasNextPage) await fetchNextPage();
-        fetching = false;
-      }
-    };
-    document.addEventListener("scroll", handleScroll);
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
-    };
-  }, [fetchNextPage, hasNextPage]);
+  useInfiniteScroll(popularMoviesQuery);
 
   if (popularMoviesQuery.isLoading) {
     return <div>Loading...</div>;

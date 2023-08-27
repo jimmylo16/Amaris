@@ -1,12 +1,13 @@
-import { Movies } from "@/interfaces/Movies";
+import { PopularMoviesFailed, Movies } from "@/interfaces";
 import { getPopularMovies } from "@/services/getPopularMovies";
+import { getPopularTvSeries } from "@/services/getPopularTvSeries";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 const PERPAGE = 10;
 export const useGetPopularMovies = () => {
-  const usersQuery = useInfiniteQuery<
+  const popularMoviesQuery = useInfiniteQuery<
     Movies.PopularMovies,
-    Movies.PopularMoviesFailed
+    PopularMoviesFailed
   >(["getPopularMovies"], ({ pageParam = 1 }) => getPopularMovies(pageParam), {
     getNextPageParam: (lastPage, allPages) => {
       const total = lastPage.total_results;
@@ -17,5 +18,5 @@ export const useGetPopularMovies = () => {
     retry: false,
   });
 
-  return usersQuery;
+  return popularMoviesQuery;
 };

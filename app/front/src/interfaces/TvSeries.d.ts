@@ -1,7 +1,5 @@
-import { AxiosError } from "axios";
-
-declare namespace Movies {
-  export interface PopularMovies {
+declare namespace TvSeries {
+  export interface PopularTvSeries {
     page: number;
     results: Result[];
     total_pages: number;
@@ -9,20 +7,19 @@ declare namespace Movies {
   }
 
   export interface Result {
-    adult: boolean;
-    backdrop_path: string;
+    backdrop_path: null | string;
+    first_air_date: string;
     genre_ids: number[];
     id: number;
+    name: string;
+    origin_country: string[];
     original_language: string;
-    original_title: string;
+    original_name: string;
     overview: string;
     popularity: number;
-    poster_path: string;
-    release_date: string;
-    title: string;
-    video: boolean;
+    poster_path: null | string;
     vote_average: number;
     vote_count: number;
   }
 }
-export { Movies };
+export { TvSeries };
