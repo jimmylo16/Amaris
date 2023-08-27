@@ -7,7 +7,7 @@ export const useGetPopularMovies = () => {
   const usersQuery = useInfiniteQuery<
     Movies.PopularMovies,
     Movies.PopularMoviesFailed
-  >(["getPopularMovies"], () => getPopularMovies(), {
+  >(["getPopularMovies"], ({ pageParam = 1 }) => getPopularMovies(pageParam), {
     getNextPageParam: (lastPage, allPages) => {
       const total = lastPage.total_results;
       return total > allPages.length * PERPAGE ? allPages.length + 1 : null;

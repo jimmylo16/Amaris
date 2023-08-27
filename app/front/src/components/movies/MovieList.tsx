@@ -1,5 +1,6 @@
 import { useGetPopularMovies } from "@/hooks/useGetPopularMovies";
 import React, { useEffect } from "react";
+import { MovieCard } from "./MovieCard";
 
 export const MovieList = () => {
   const popularMoviesQuery = useGetPopularMovies();
@@ -35,8 +36,12 @@ export const MovieList = () => {
   }
   return (
     <section className="mt-4 mx-3">
-      <div className="grid grid-cols-2 gap-4  md:grid-cols-3 lg:grid-cols-4">
-        {data?.pages?.map((page) => page.results.map((item) => <></>))}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-1">
+        {data?.pages?.map((page) =>
+          page.results.map((movieResult) => (
+            <MovieCard movieResult={movieResult}></MovieCard>
+          ))
+        )}
       </div>
     </section>
   );
