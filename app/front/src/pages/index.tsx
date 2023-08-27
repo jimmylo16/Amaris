@@ -1,13 +1,19 @@
 import { Register } from "@/components/Register";
 import { MovieList } from "@/components/movies/MovieList";
+import { useGlobalState } from "@/hooks/useGlobalContext";
 
 export default function Home() {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between sm:p-24 `}
-    >
-      {/* <Register /> */}
-      <MovieList />
-    </main>
-  );
+  const { view } = useGlobalState();
+  console.log(view);
+  if (view === "movies") {
+    return <MovieList />;
+  }
+  if (view === "login") {
+    return <MovieList />;
+  }
+  if (view === "register") {
+    return <Register />;
+  }
+
+  return <></>;
 }
