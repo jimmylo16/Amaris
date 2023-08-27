@@ -25,7 +25,7 @@ export const MovieList = () => {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-1">
         {data?.pages?.map((page) =>
           page.results.map((movieResult) => (
-            <MovieCard movieResult={movieResult}></MovieCard>
+            <MovieCard movieResult={movieResult} key={movieResult.id} />
           ))
         )}
       </div>

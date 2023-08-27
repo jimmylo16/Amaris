@@ -2,24 +2,20 @@
 > front@0.1.0 build
 > next build
 
+- info Loaded env from C:\Users\Jimmy\Desktop\desarrollo\amaris\app\front\.env.local
+- info Loaded env from C:\Users\Jimmy\Desktop\desarrollo\amaris\app\front\.env
 - info Linting and checking validity of types...
-- info Creating an optimized production build...
-- info Compiled successfully
-- info Collecting page data...
-- info Generating static pages (0/3)
-- info Generating static pages (3/3)
-- info Finalizing page optimization...
 
-Route (pages)                              Size     First Load JS
-┌ ○ /                                      741 B          76.4 kB
-├   /_app                                  0 B            75.6 kB
-└ ○ /404                                   182 B          75.8 kB
-+ First Load JS shared by all              77.7 kB
-  ├ chunks/framework-b39550991c1bc003.js   45.2 kB
-  ├ chunks/main-7b07c6a356fe204f.js        29.4 kB
-  ├ chunks/pages/_app-5fbdfbcdfb555d2f.js  296 B
-  ├ chunks/webpack-8fa1640cc84ba8fe.js     750 B
-  └ css/f23d0a7eaa9e6a0c.css               2.07 kB
+Failed to compile.
 
-○  (Static)  automatically rendered as static HTML (uses no initial props)
+./src/components/movies/MovieList.tsx
+28:13  Error: Missing "key" prop for element in iterator  react/jsx-key
 
+./src/components/tvSeries/TvSeriesList.tsx
+25:42  Error: Missing "key" prop for element in iterator  react/jsx-key
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+npm ERR! Lifecycle script `build` failed with error: 
+npm ERR! Error: command failed 
+npm ERR!   in workspace: front@0.1.0 
+npm ERR!   at location: C:\Users\Jimmy\Desktop\desarrollo\amaris\app\front 

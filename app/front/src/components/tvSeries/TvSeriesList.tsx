@@ -22,7 +22,9 @@ export const TvSeriesList = () => {
     <section className="mt-4 mx-3">
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-1">
         {data?.pages?.map((page) =>
-          page.results.map((tvResult) => <TvSeriesCard tvResult={tvResult} />)
+          page.results.map((tvResult) => (
+            <TvSeriesCard tvResult={tvResult} key={tvResult.id} />
+          ))
         )}
       </div>
     </section>
