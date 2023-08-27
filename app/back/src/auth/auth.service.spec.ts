@@ -10,13 +10,19 @@ import { JwtModule } from '@nestjs/jwt';
 export const mockCreateUserInput: CreateUserDto = {
   email: 'jimmylo16@gmail.com',
   password: 'Clave123',
-  fullName: 'Jimmy ',
+  fullName: 'Jimmy',
 };
 
-export const mockCreatedUser: CreateUserDto = {
+export const mockUser: User = {
+  id: '1',
   email: 'jimmylo16@gmail.com',
+  fullName: 'Jimmy',
   password: 'Clave123',
-  fullName: 'Jimmy ',
+};
+export const mockCreatedUser = {
+  email: 'jimmylo16@gmail.com',
+  fullName: 'Jimmy',
+  id: '1',
 };
 
 describe('UsersService', () => {
@@ -39,6 +45,11 @@ describe('UsersService', () => {
         {
           provide: getRepositoryToken(User),
           useClass: Repository,
+          useValue: {
+            // find: jest.fn().mockResolvedValue(mockUser),
+            // create: jest.fn().mockResolvedValue(mockUser),
+            // save: jest.fn().mockResolvedValue(mockUser),
+          },
         },
       ],
     }).compile();
@@ -51,47 +62,24 @@ describe('UsersService', () => {
     expect(authService).toBeDefined();
   });
 
-  // it('should create a user', async () => {
-  //   userRepository.create = jest.fn().mockReturnValue(mockCreatedUser);
-  //   userRepository.save = jest.fn().mockReturnValue(mockCreatedUser);
+  it('should create a user if the email is not in the database', async () => {
+    jest.spyOn(userRepository, 'find').mockResolvedValue([]);
+    jest.spyOn(userRepository, 'create').mockReturnValue(mockUser);
+    jest.spyOn(userRepository, 'save').mockResolvedValue(mockUser);
+    const result = await authService.create(mockCreateUserInput);
 
-  //   const result = await authService.create(mockCreateUserInput);
+    expect(result).toEqual({
+      ...mockCreatedUser,
+      token: authService.getJwtToken({ email: mockUser.email }),
+    });
+  });
+  it('should return a message if the user is already created', async () => {
+    jest.spyOn(userRepository, 'find').mockResolvedValue([mockUser]);
 
-  //   expect(userRepository.create).toHaveBeenCalledWith(mockCreateUserInput);
-  //   expect(userRepository.save).toHaveBeenCalledWith(mockCreatedUser);
-  //   expect(result).toEqual(mockCreatedUser);
-  // });
+    const result = await authService.create(mockCreateUserInput);
 
-  // it('should update a user', async () => {
-  //   const user_id = 'unique_id_generated_by_database';
-  //   const updateUserInput = {
-  //     user_id,
-  //   };
-  //   const mockUpdatedUser: User = {
-  //     ...mockCreatedUser,
-  //     ...updateUserInput,
-  //   };
-
-  //   userRepository.preload = jest.fn().mockResolvedValue(mockUpdatedUser);
-  //   userRepository.save = jest.fn().mockResolvedValue(mockUpdatedUser);
-
-  //   const result = await usersService.update(user_id, updateUserInput);
-
-  //   expect(userRepository.preload).toHaveBeenCalledWith(updateUserInput);
-  //   expect(userRepository.save).toHaveBeenCalledWith(mockUpdatedUser);
-  //   expect(result).toEqual(mockUpdatedUser);
-  // });
-
-  // it('should remove a user', async () => {
-  //   const user_id = 'unique_id_generated_by_database';
-
-  //   usersService.findOne = jest.fn().mockResolvedValue(mockCreatedUser);
-  //   userRepository.remove = jest.fn().mockResolvedValue(undefined);
-
-  //   const result = await usersService.remove(user_id);
-
-  //   expect(usersService.findOne).toHaveBeenCalledWith(user_id);
-  //   expect(userRepository.remove).toHaveBeenCalledWith(mockCreatedUser);
-  //   expect(result).toEqual({ user_id });
-  // });
+    expect(result).toEqual({
+      msg: `The user with the ${mockUser.email} was already created`,
+    });
+  });
 });

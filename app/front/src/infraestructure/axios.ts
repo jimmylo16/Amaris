@@ -1,20 +1,17 @@
-import axios from "axios";
+import { AxiosInstance } from "axios";
+import { moviesAxiosInstance } from "./moviesInstance";
 
 export type AxiosMethods = "get" | "post" | "put" | "delete";
 type IAxiosCall = {
+  axiosInstance?: AxiosInstance;
   method: AxiosMethods;
   endpoint: string;
   id?: string;
   body?: any;
 };
 
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api/", // Replace with your base URL
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
 export const axiosCall = async <T>({
+  axiosInstance = moviesAxiosInstance,
   method,
   endpoint,
   id,
