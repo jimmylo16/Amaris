@@ -7,7 +7,13 @@ import {
 } from "react";
 import { Header } from "./header/Header";
 
-export type views = "movies" | "series" | "login" | "register";
+export type views =
+  | "movies"
+  | "series"
+  | "login"
+  | "register"
+  | "detailMovie"
+  | "detailSeries";
 export type TsetView =
   | Dispatch<SetStateAction<views>>
   | ((views: views) => void);

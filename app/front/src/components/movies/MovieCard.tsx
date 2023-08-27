@@ -1,12 +1,20 @@
 import { Movies } from "@/interfaces/Movies";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 type MovieCardProps = {
   movieResult: Movies.Result;
 };
 export const MovieCard = ({ movieResult }: MovieCardProps) => {
+  const router = useRouter();
+  const handleClick = (id: number) => {
+    router.push(`/movie/${id}`);
+  };
   return (
-    <div className="bg-slate-300  shadow-md p-2 cursor-pointer flex  flex-col sm:flex-row gap-5 items-center sm:items-start">
+    <div
+      className="bg-slate-300  shadow-md p-2 cursor-pointer flex  flex-col sm:flex-row gap-5 items-center sm:items-start"
+      onClick={() => handleClick(movieResult.id)}
+    >
       <Image
         src={`https://image.tmdb.org/t/p/w200/${movieResult.poster_path}`}
         width={150}
