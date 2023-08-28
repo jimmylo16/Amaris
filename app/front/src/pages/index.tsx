@@ -1,11 +1,11 @@
-import { Register } from "@/components/Register";
 import { MovieList } from "@/components/movies/MovieList";
 import { TvSeriesList } from "@/components/tvSeries/TvSeriesList";
 import { useGlobalState } from "@/hooks/useGlobalContext";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const { view } = useGlobalState();
-  console.log(view);
+  const router = useRouter();
   if (view === "movies") {
     return <MovieList />;
   }
@@ -13,7 +13,12 @@ export default function Home() {
     return <TvSeriesList />;
   }
   if (view === "register") {
-    return <Register />;
+    // return <Register />;
+    router.push("/register");
+  }
+  if (view === "login") {
+    // return <Register />;
+    router.push("/login");
   }
 
   return <></>;

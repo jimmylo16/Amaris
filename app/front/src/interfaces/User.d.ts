@@ -1,5 +1,5 @@
 declare namespace User {
-  export interface RegisterResponse {
+  export interface Response {
     email: string;
     fullName: string;
     id: string;

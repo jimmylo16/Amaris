@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Input } from "./input/Input";
-import { useRegisterMutation } from "@/hooks/Users/useRegisterMutation";
+import { Input } from "../input/Input";
+import { useGlobalState } from "@/hooks/useGlobalContext";
+import Cookies from "js-cookie";
+import { useLoginMutation } from "@/hooks/Users/useLoginMutation";
+import { useRouter } from "next/router";
 
-export const Register = () => {
-  const registerUserMutation = useRegisterMutation();
-
+export const Login = () => {
+  const loginMutation = useLoginMutation();
+  const router = useRouter();
   const [register, setRegister] = useState({
     email: "",
-    fullName: "",
     password: "",
   });
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,23 +20,24 @@ export const Register = () => {
       };
     });
   };
-  console.log(register);
-  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+  const { setIsLogged } = useGlobalState();
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const registeredUser = await registerUserMutation.mutateAsync(register);
-    if (registeredUser) {
+    try {
+      const registeredUser = await loginMutation.mutateAsync(register);
+      if (registeredUser.token) {
+        setIsLogged(true);
+        localStorage.setItem("token", registeredUser.token);
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
     <div className="flex items-center justify-center p-12">
       <div className="mx-auto w-full max-w-[550px]">
-        <form onSubmit={handleRegister}>
-          <Input
-            label="Name"
-            id="fullName"
-            placeholder="Enter your name"
-            onChange={handleOnChange}
-          />
+        <form onSubmit={handleLogin}>
           <Input
             label="First Email"
             id="email"
@@ -50,7 +53,10 @@ export const Register = () => {
             onChange={handleOnChange}
           />
           <div>
-            <button className="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">
+            <button
+              className="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none"
+              type="submit"
+            >
               Submit
             </button>
           </div>

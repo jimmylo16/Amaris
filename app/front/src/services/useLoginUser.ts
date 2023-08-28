@@ -2,16 +2,15 @@ import { axiosCall } from "@/infraestructure/axios";
 import { backendInstance } from "@/infraestructure/backendInstance";
 import { User } from "@/interfaces/User";
 
-export type TregisterUserBody = {
+export type TloginUserBody = {
   email: string;
-  fullName: string;
   password: string;
 };
-export const registerUser = (registerUserBody: TregisterUserBody) => {
+export const loginUser = (loginrUserBody: TloginUserBody) => {
   return axiosCall<User.Response>({
     method: "post",
-    endpoint: `/auth/register`,
-    body: registerUserBody,
+    endpoint: `/auth/login`,
+    body: loginrUserBody,
     axiosInstance: backendInstance,
   });
 };
