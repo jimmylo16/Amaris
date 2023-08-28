@@ -51,6 +51,8 @@ $ cd .\front\
 $ npm install
 ```
 
+Ensure that you are in the front folder and the node_modules folder is inside
+
 4. Navigate to amaris
 
 ```bash
@@ -64,5 +66,3 @@ $ cd ..
 ```bash
 $ npm run dev
 ```
-
-Ensure that you are in the front folder and the node_modules folder is inside
