@@ -7,6 +7,7 @@ type InputProps = {
   classNameContainer?: string;
   name?: string;
   type?: React.HTMLInputTypeAttribute | undefined;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 export const Input: FC<InputProps> = ({
   label,
@@ -15,6 +16,7 @@ export const Input: FC<InputProps> = ({
   classNameContainer,
   name,
   type = "text",
+  onChange,
 }) => {
   return (
     <div className={`mb-5 ${classNameContainer}`} data-testid="input-container">
@@ -29,6 +31,11 @@ export const Input: FC<InputProps> = ({
         name={name ? name : id}
         id={id}
         placeholder={placeholder}
+        onChange={(e) => {
+          if (onChange) {
+            onChange(e);
+          }
+        }}
         className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
       />
     </div>

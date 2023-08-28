@@ -1,4 +1,4 @@
-import { useGetPopularMovies } from "@/hooks/useGetPopularMovies";
+import { useGetPopularMovies } from "@/hooks";
 import React, { useEffect } from "react";
 import { MovieCard } from "./MovieCard";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";

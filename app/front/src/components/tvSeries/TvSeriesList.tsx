@@ -1,5 +1,5 @@
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
-import { useGetPopularTvSeries } from "@/hooks/useGetPopularTvSeries";
+import { useGetPopularTvSeries } from "@/hooks/tvSeries/useGetPopularTvSeries";
 import { TvSeriesCard } from "./TvSeriesCard";
 
 export const TvSeriesList = () => {

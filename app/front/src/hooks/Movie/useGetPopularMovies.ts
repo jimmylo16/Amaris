@@ -1,6 +1,5 @@
 import { PopularMoviesFailed, Movies } from "@/interfaces";
 import { getPopularMovies } from "@/services/getPopularMovies";
-import { getPopularTvSeries } from "@/services/getPopularTvSeries";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 const PERPAGE = 10;
