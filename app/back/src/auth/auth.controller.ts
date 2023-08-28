@@ -29,11 +29,11 @@ export class AuthController {
   delete(@Param('id') id: string) {
     return this.authService.delete(id);
   }
-  @Get('getClient')
+  @Get('getUser')
   findAll() {
     return this.authService.findAll();
   }
-  @Get('getClient/:id')
+  @Get('getUser/:id')
   findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.authService.findOne(id);
   }

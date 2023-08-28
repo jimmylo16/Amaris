@@ -4,6 +4,7 @@ import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true, // dont needed in true in production
     }),
     AuthModule,
+    MoviesModule,
   ],
 })
 export class AppModule {}

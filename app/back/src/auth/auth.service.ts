@@ -12,7 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginUserDto } from './dto/login-user.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
-import { UpdateClientDto } from './dto/update-client.dto';
+import { UpdateUserDto } from './dto/update-client.dto';
 import { NotFoundException } from '@nestjs/common/exceptions/not-found.exception';
 
 @Injectable()
@@ -78,38 +78,38 @@ export class AuthService {
     throw new InternalServerErrorException('Please check logs');
   }
 
-  async update(id: string, updateClientDto: UpdateClientDto) {
-    const client = await this.userRepository.preload({
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.userRepository.preload({
       id,
-      ...updateClientDto,
+      ...updateUserDto,
     });
-    if (!client) {
-      throw new NotFoundException(`The Client with the id=${id} was not found`);
+    if (!user) {
+      throw new NotFoundException(`The user with the id=${id} was not found`);
     }
-    return this.userRepository.save(client);
+    return this.userRepository.save(user);
   }
 
   async delete(id: string) {
-    const client = await this.findOne(id);
-    if (!client) {
-      throw new NotFoundException(`The Client with the id=${id} was not found`);
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new NotFoundException(`The user with the id=${id} was not found`);
     }
-    await this.userRepository.remove(client);
+    await this.userRepository.remove(user);
     return { isDeleted: true };
   }
   async findOne(id: string) {
-    const client = await this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOneBy({ id });
 
-    if (!client)
-      throw new NotFoundException(`The client with the id=${id} was not found`);
-    return client;
+    if (!user)
+      throw new NotFoundException(`The user with the id=${id} was not found`);
+    return user;
   }
   async findAll() {
-    const client = await this.userRepository.find({
+    const user = await this.userRepository.find({
       take: 10,
       skip: 0,
     });
-    if (!client) throw new NotFoundException(`Clients Does not exists`);
-    return client;
+    if (!user) throw new NotFoundException(`users Does not exists`);
+    return user;
   }
 }

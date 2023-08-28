@@ -13,11 +13,9 @@ export default function Home() {
     return <TvSeriesList />;
   }
   if (view === "register") {
-    // return <Register />;
     router.push("/register");
   }
   if (view === "login") {
-    // return <Register />;
     router.push("/login");
   }
 
