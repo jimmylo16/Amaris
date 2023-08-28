@@ -28,6 +28,7 @@ export const Login = () => {
       if (registeredUser.token) {
         setIsLogged(true);
         localStorage.setItem("token", registeredUser.token);
+        localStorage.setItem("userId", registeredUser.id);
         router.push("/");
       }
     } catch (error) {

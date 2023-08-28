@@ -1,3 +1,4 @@
+import { useGlobalState } from "@/hooks/useGlobalContext";
 import { Movies } from "@/interfaces/Movies";
 import { addToFav } from "@/services/addToFav";
 import Image from "next/image";
@@ -8,11 +9,15 @@ type MovieCardProps = {
 };
 export const MovieCard = ({ movieResult }: MovieCardProps) => {
   const router = useRouter();
+  const { isLogged } = useGlobalState();
+  const userId = localStorage.getItem("userId");
   const handleClick = (id: number) => {
     router.push(`/movie/${id}`);
   };
   const handleAddToFav = async () => {
-    const response = await addToFav(movieResult);
+    if (userId) {
+      const response = await addToFav(userId, movieResult);
+    }
   };
   return (
     <div className="bg-slate-300  shadow-md p-2 cursor-pointer flex  flex-col sm:flex-row gap-5 items-center sm:items-start">
@@ -29,9 +34,14 @@ export const MovieCard = ({ movieResult }: MovieCardProps) => {
           <span className="break-all   text-ellipsis pb-2 text-blue-800 text-4xl text-left">
             {movieResult.title}
           </span>
-          <span className="material-symbols-outlined" onClick={handleAddToFav}>
-            favorite
-          </span>
+          {isLogged && (
+            <span
+              className="material-symbols-outlined"
+              onClick={handleAddToFav}
+            >
+              favorite
+            </span>
+          )}
         </div>
         <span
           className="font-bold text-2xl "

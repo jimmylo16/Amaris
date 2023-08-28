@@ -14,6 +14,7 @@ export const Header = ({ setView }: HeaderProps) => {
   };
   const logOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     router.reload();
   };
 

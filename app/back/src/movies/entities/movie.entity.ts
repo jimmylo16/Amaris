@@ -1,16 +1,17 @@
-import { Column, PrimaryGeneratedColumn, Entity } from 'typeorm';
+import { User } from 'src/auth/entities/user.entity';
+import { Column, PrimaryGeneratedColumn, Entity, ManyToOne } from 'typeorm';
 
-@Entity('movies')
+@Entity('favMovies')
 export class Movie {
   @PrimaryGeneratedColumn('uuid')
-  movieId: string;
+  favoriteMoviesId: string;
   @Column('boolean')
   adult: boolean;
   @Column('text')
   backdrop_path: string;
-  @Column('number', { array: true })
+  @Column('integer', { array: true })
   genre_ids: number[];
-  @Column('number')
+  @Column('integer')
   id: number;
   @Column('text')
   original_language: string;
@@ -18,6 +19,7 @@ export class Movie {
   original_title: string;
   @Column('text')
   overview: string;
+  @Column('integer')
   popularity: number;
   @Column('text')
   poster_path: string;
@@ -27,8 +29,11 @@ export class Movie {
   title: string;
   @Column('boolean')
   video: boolean;
-  @Column('number')
+  @Column('integer')
   vote_average: number;
-  @Column('number')
+  @Column('integer')
   vote_count: number;
+
+  @ManyToOne(() => User, (user) => user.favoriteMoviesId)
+  userId: string;
 }

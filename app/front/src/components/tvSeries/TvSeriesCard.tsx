@@ -1,4 +1,6 @@
+import { useGlobalState } from "@/hooks/useGlobalContext";
 import { TvSeries } from "@/interfaces";
+import { addToFav } from "@/services/addToFav";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -7,8 +9,12 @@ type TvSeriesCardProps = {
 };
 export const TvSeriesCard = ({ tvResult }: TvSeriesCardProps) => {
   const router = useRouter();
+  const { isLogged } = useGlobalState();
   const handleClick = (id: number) => {
     router.push(`/tvSerie/${id}`);
+  };
+  const handleAddToFav = async () => {
+    // const response = await addToFav(tvResult);
   };
   return (
     <div
@@ -23,9 +29,19 @@ export const TvSeriesCard = ({ tvResult }: TvSeriesCardProps) => {
         className="rounded-lg  w-52 sm:text-center "
       />
       <section className="flex flex-col gap-2  justify-start p-2">
-        <span className="break-all   text-ellipsis pb-2 text-blue-800 text-4xl text-left">
-          {tvResult.name}
-        </span>
+        <div className="flex  justify-between">
+          <span className="break-all   text-ellipsis pb-2 text-blue-800 text-4xl text-left">
+            {tvResult.name}
+          </span>
+          {isLogged && (
+            <span
+              className="material-symbols-outlined"
+              onClick={handleAddToFav}
+            >
+              favorite
+            </span>
+          )}
+        </div>
         <span className="font-bold text-2xl">
           Overall vote: {tvResult.vote_average}
         </span>

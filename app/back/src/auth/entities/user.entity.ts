@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Movie } from 'src/movies/entities/movie.entity';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -17,4 +18,7 @@ export class User {
 
   @Column('text')
   fullName: string;
+
+  @OneToMany(() => Movie, (movie) => movie.favoriteMoviesId)
+  favoriteMoviesId?: Movie[];
 }

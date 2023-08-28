@@ -29,6 +29,7 @@ export const Register = () => {
       setIsLogged(true);
       Cookies.set("token", registeredUser.token);
       localStorage.setItem("token", registeredUser.token);
+      localStorage.setItem("userId", registeredUser.id);
       router.push("/");
     }
   };
