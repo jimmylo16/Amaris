@@ -1,12 +1,20 @@
 import { TvSeries } from "@/interfaces";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 type TvSeriesCardProps = {
   tvResult: TvSeries.Result;
 };
 export const TvSeriesCard = ({ tvResult }: TvSeriesCardProps) => {
+  const router = useRouter();
+  const handleClick = (id: number) => {
+    router.push(`/tvSerie/${id}`);
+  };
   return (
-    <div className="bg-slate-300  shadow-md p-2 cursor-pointer flex  flex-col sm:flex-row gap-5 items-center sm:items-start">
+    <div
+      className="bg-slate-300  shadow-md p-2 cursor-pointer flex  flex-col sm:flex-row gap-5 items-center sm:items-start"
+      onClick={() => handleClick(tvResult.id)}
+    >
       <Image
         src={`https://image.tmdb.org/t/p/w200/${tvResult.poster_path}`}
         width={150}
